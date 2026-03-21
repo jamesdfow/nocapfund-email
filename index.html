@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tell Your Rep: Uncap the House | No Cap Fund</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <main class="page-wrapper">
+    <section class="action-card">
+
+      <!-- Header -->
+      <div class="card-header">
+        <span class="badge">Take Action</span>
+        <h1>Tell your representative: uncap the House.</h1>
+        <p class="subtitle">Takes 60 seconds. We'll find your rep and send the email for you.</p>
+      </div>
+
+      <!-- Form -->
+      <form id="action-form" class="action-form" novalidate>
+
+        <!-- Step 1: User Info -->
+        <div class="field-row">
+          <div class="field-group">
+            <label for="first-name" class="sr-only">First name</label>
+            <input
+              type="text"
+              id="first-name"
+              name="firstName"
+              placeholder="First name"
+              autocomplete="given-name"
+              required
+            />
+            <span class="field-error" id="first-name-error"></span>
+          </div>
+          <div class="field-group">
+            <label for="last-name" class="sr-only">Last name</label>
+            <input
+              type="text"
+              id="last-name"
+              name="lastName"
+              placeholder="Last name"
+              autocomplete="family-name"
+              required
+            />
+            <span class="field-error" id="last-name-error"></span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="email" class="sr-only">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email address"
+            autocomplete="email"
+            required
+          />
+          <span class="field-error" id="email-error"></span>
+        </div>
+
+        <!-- Step 2: ZIP + Rep Lookup -->
+        <div class="field-row zip-row">
+          <div class="field-group zip-field-group">
+            <label for="zip" class="sr-only">ZIP code</label>
+            <input
+              type="text"
+              id="zip"
+              name="zip"
+              placeholder="ZIP code"
+              autocomplete="postal-code"
+              maxlength="5"
+              pattern="\d{5}"
+              required
+            />
+            <span class="field-error" id="zip-error"></span>
+          </div>
+          <div class="rep-display" id="rep-display" aria-live="polite">
+            <span class="rep-arrow">→</span>
+            <span class="rep-name" id="rep-name-text">Auto-detects your rep</span>
+          </div>
+        </div>
+
+        <!-- Step 3: Email Preview -->
+        <div class="email-preview-wrapper" id="email-preview-wrapper">
+          <div class="email-preview-header">
+            <div class="email-meta">
+              <span class="email-meta-label">To:</span>
+              <span id="preview-to" class="email-meta-value">Your representative</span>
+              <span class="email-meta-sep">·</span>
+              <span class="email-meta-label">Subject:</span>
+              <span class="email-meta-value">Please support uncapping the House of Representatives</span>
+            </div>
+            <button type="button" class="editable-badge" id="toggle-edit-btn" aria-expanded="false">
+              Editable
+            </button>
+          </div>
+          <div class="email-body-container">
+            <textarea
+              id="email-body"
+              class="email-body"
+              aria-label="Email body — editable"
+              rows="10"
+              readonly
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Step 4: Personal Note (collapsed by default) -->
+        <div class="personal-note-wrapper">
+          <button type="button" class="personal-note-toggle" id="personal-note-toggle" aria-expanded="false">
+            + Add a personal note (optional) — why does this issue matter to you?
+          </button>
+          <div class="personal-note-field" id="personal-note-field" hidden>
+            <label for="personal-note" class="sr-only">Personal note</label>
+            <textarea
+              id="personal-note"
+              name="personalNote"
+              placeholder="Share your personal connection to this issue... (this will be appended to the email)"
+              rows="4"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Step 5: Opt-in + Submit -->
+        <div class="opt-in-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="opt-in" name="optIn" value="true" />
+            <span>Keep me updated on No Cap Fund's progress and campaigns</span>
+          </label>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="send-btn" id="send-btn">
+            Send Email →
+          </button>
+          <p class="privacy-note">
+            We never share your info. You'll receive a confirmation.
+            <a href="#privacy" class="privacy-link">Privacy policy</a>
+          </p>
+        </div>
+
+        <!-- API / Tech footnote -->
+        <p class="tech-footnote">
+          → ZIP lookup via Google Civic API. Email delivery via Action Network.
+          Rep name auto-populated in salutation. Template fully editable before send.
+        </p>
+
+      </form>
+
+      <!-- Step 6: Success State (hidden until submission) -->
+      <div class="success-state" id="success-state" hidden>
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <h2>Email sent!</h2>
+        <p>Your message has been delivered to <strong id="success-rep-name"></strong>. Thank you for taking action.</p>
+        <div class="share-prompt">
+          <p class="share-label">Now tell a friend:</p>
+          <div class="share-buttons">
+            <a href="#" class="share-btn share-twitter" id="share-twitter" target="_blank" rel="noopener noreferrer">
+              Share on X
+            </a>
+            <a href="#" class="share-btn share-facebook" id="share-facebook" target="_blank" rel="noopener noreferrer">
+              Share on Facebook
+            </a>
+            <button type="button" class="share-btn share-copy" id="share-copy">
+              Copy link
+            </button>
+          </div>
+        </div>
+        <button type="button" class="send-another-btn" id="send-another-btn">Send another email</button>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Privacy Policy anchor target (placeholder) -->
+  <div id="privacy" hidden></div>
+
+  <script src="js/templates.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
